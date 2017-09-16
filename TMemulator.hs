@@ -10,7 +10,7 @@ import TMfiles
      * The Tape type is a variant of the one in here:
            - https://rosettacode.org/wiki/Universal_Turing_machine
      * I've come up with everything else:
-           - https://github.com/average-user                                    -}
+           - https://github.com/Average-user/Turing-Machine-Emulator                                    -}
 
 -- ========================================================================== --
                 -- Types definitions and Types synonyms --

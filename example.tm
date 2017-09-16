@@ -1,10 +1,10 @@
 ;; Language recognition
 
-;; The tape will end empty only if there it's the same amount of 0s that 1s
+;; The tape will end empty only if there it's the same amount of 0s and 1s
 ;; and all 0s are before the 1s.
 ;; like this:  0000011111
-;; if the it's not like that and something like this: 0001101
-;; will not end in an empty Tape.
+;; if instead the initial tape it's  like this: 0001011
+;; will not end in an empty Tape, the final Tape will be: 10.
 
 Initial = A
 Blank   = .
