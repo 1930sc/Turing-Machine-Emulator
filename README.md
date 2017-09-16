@@ -81,6 +81,6 @@ See:[ Wikipedia Turing Machine formal-definition](https://en.wikipedia.org/wiki/
 
    Example :  The rules ``` (A 1 0 -> B)``` means, that if the machine it's in the state ```A``` and sees a ```1``` then, replace it by ```0``` move to the ```->``` (right), and change to state ```B```.  Where the first element it's a Haskell-String, the second and the third are characters, the forth can be either ``` -> ``` (right), ```<-``` (left) or ```><```(Stay), and the fifth element is again a Haskell-String, in the sense that they can be larger then 1 character, because there are just names for states, not symbols.
 
-6. **The Initial State** it has to be specified, and it's very similar to the blank symbol and the rules. The example ```Initial = A``` it is a definition of a Initial state, just as it's in the ````example.tm ``` file.
+6. **The Initial State** it has to be specified, and it's very similar to the blank symbol and the rules. The example ```Initial = A``` it is a definition of a Initial state, just as it's in the ```example.tm ``` file.
 
 7. **The accepting final states** it's not specified in this emulator, we just assume that the machine will end when there isn't any rule that can be applied, on the current state with the current tape and the current place of the head.
