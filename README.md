@@ -53,7 +53,9 @@ And lastly but not leastly, is the ```.tm``` file extension. This extension does
 
 **To understand this easier, you might want to have a new window with the ```exmple.tm``` file open**
 
-**First, every line that starts with ``` ;; ``` it is a commentary.     And apart from that there is just 3 parts to talk about.**
+**The first thing that you have to know it's that every line that starts with
+```;;``` it's a commentary. Other than that, there are just three parts to talk
+about **
   - Initial State.
   - Blank Symbol.
   - Rules.
