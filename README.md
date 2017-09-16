@@ -2,9 +2,9 @@
 
 **This project it's separated in 3 parts:**
 
-  - Emulator itself (TMemulator.hs).
-  - Read file module (TMfiles.hs).
-  - .tm File extension.
+  * Emulator itself (TMemulator.hs).
+  * Read file module (TMfiles.hs).
+  * .tm File extension.
 
 The first one it's a program that essentially takes a Turing Machine, an initial word and returns either the final word or every word in a sequential order.
 
@@ -77,10 +77,9 @@ See:[ Wikipedia Turing Machine formal-definition](https://en.wikipedia.org/wiki/
 
 4. **The set of allowed symbols** (characters) that may appear in the initial tape, are just the characters allowed by the program or the Terminal.
 
-5.
-  - **To define the rules** of a Turing Machine you must write ```Rules = ```, and after that, you write every rule you need. But a rule itself has a syntax too.   Every rule will be a 5 elements tuple, where this, will be separated by spaces.
+5. **To define the rules** of a Turing Machine you must write ```Rules = ```, and after that, you write every rule you need. But a rule itself has a syntax too.   Every rule will be a 5 elements tuple, where this, will be separated by spaces.
 
-  - Example :  The rules ``` (A 1 0 -> B)``` means, that if the machine it's in the state ```A``` and sees a ```1``` then, replace it by ```0``` move to the ```->``` (right), and change to state ```B```.  Where the first element it's a Haskell-String, the second and the third are characters, the forth can be either ``` -> ``` (right), ```<-``` (left) or ```><```(Stay), and the fifth element is again a Haskell-String, in the sense that they can be larger then 1 character, because there are just names for states, not symbols.
+   Example :  The rules ``` (A 1 0 -> B)``` means, that if the machine it's in the state ```A``` and sees a ```1``` then, replace it by ```0``` move to the ```->``` (right), and change to state ```B```.  Where the first element it's a Haskell-String, the second and the third are characters, the forth can be either ``` -> ``` (right), ```<-``` (left) or ```><```(Stay), and the fifth element is again a Haskell-String, in the sense that they can be larger then 1 character, because there are just names for states, not symbols.
 
 6. **The Initial State** it has to be specified, and it's very similar to the blank symbol and the rules. The example ```Initial = A``` it is a definition of a Initial state, just as it's in the ````example.tm ``` file.
 
