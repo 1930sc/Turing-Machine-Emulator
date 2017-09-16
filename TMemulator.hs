@@ -102,7 +102,7 @@ currentChar (Tape x l r n) = x
 
 
 -- ========================================================================== --
-                          -- Accessing tu Rules --
+                          -- Accessing to Rules --
 -- ========================================================================== --
 ruleTuple :: State -> Char -> Char -> Action -> State -> Rule
 ruleTuple a b c d e = (a, b, c, d, e)
@@ -128,7 +128,7 @@ nextStateOf (_, _, _, _, x) = x
 -- ========================================================================== --
 
 {- A machine is composed by a set of rules, a blank symbol and a initial state.
-   So, this functions are here to acces to every part of them                  -}
+   So, this functions are here to acces to every part of them                 -}
 rulesOf :: Machine -> Rules
 rulesOf (x,_,_) = x
 
