@@ -77,7 +77,8 @@ See:[ Wikipedia Turing Machine formal-definition](https://en.wikipedia.org/wiki/
 
 4. **The set of allowed symbols** (characters) that may appear in the initial tape, are just the characters allowed by the program or the Terminal.
 
-5. - **To define the rules** of a Turing Machine you must  write ```Rules = ```, and after that, you write every rule you need. But a rule itself has a syntax too.   Every rule will be a 5 elements tuple, where this, will be separated by spaces.
+5.
+  - **To define the rules** of a Turing Machine you must write ```Rules = ```, and after that, you write every rule you need. But a rule itself has a syntax too.   Every rule will be a 5 elements tuple, where this, will be separated by spaces.
 
   - Example :  The rules ``` (A 1 0 -> B)``` means, that if the machine it's in the state ```A``` and sees a ```1``` then, replace it by ```0``` move to the ```->``` (right), and change to state ```B```.  Where the first element it's a Haskell-String, the second and the third are characters, the forth can be either ``` -> ``` (right), ```<-``` (left) or ```><```(Stay), and the fifth element is again a Haskell-String, in the sense that they can be larger then 1 character, because there are just names for states, not symbols.
 
