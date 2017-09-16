@@ -6,7 +6,7 @@
   - Read file module (TMfiles.hs).
   - .tm File extension.
 
-**The first one it's a program that essentially takes a Turing Machine, an initial word and returns either the final word or every word in a sequential order.**
+The first one it's a program that essentially takes a Turing Machine, an initial word and returns either the final word or every word in a sequential order.
 
 **Here it's an example of how it works with the ``` example.tm``` file:**
 ```
@@ -42,9 +42,9 @@ Just final tape[0], or every step[1]?:
 N° of steps : 17
 ```
 
-**The second part have only one objective, and it's to read a ```.tm``` file and transform the information in it, in to a useful data.**
+The second part have only one objective, and it's to read a ```.tm``` file and transform the information in it, in to a useful data.
 
-**And lastly but not leastly, is the ```.tm``` file extension. This extension doesn't have any property by itself, it's just a nice way to indicate that it's a file that represent a Turing machine in a way that this emulator can read. In fact you can give to the emulator a ```.txt``` file, and will perfectly work if it's correctly written.  To understand how exactly a Turing Machine must be represented in this type of files, read the explanation below.**
+And lastly but not leastly, is the ```.tm``` file extension. This extension doesn't have any property by itself, it's just a nice way to indicate that it's a file that represent a Turing machine in a way that this emulator can read. In fact you can give to the emulator a ```.txt``` file, and will perfectly work if it's correctly written.  To understand how exactly a Turing Machine must be represented in this type of files, read the explanation below.
 
 ## .tm File extension explained:
 
