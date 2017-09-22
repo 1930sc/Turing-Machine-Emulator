@@ -23,7 +23,7 @@ type Machine = (Rules, State, Char)
 data Tape    = Tape Char [Char] [Char] Int
 
 {- ls = left side, rs = right side, x = 'head' and n = Chars to print.
-   Because the Tape is infinite, it is necesary to tell the computer, how many
+   Because the Tape is infinite, is necesary to tell the computer, how many
    characters it has to print. In a Tape like this: '...123[4]567...', where
    the dots are infinite to both sides, we tell the computer to print just the
    6 first characters of both sides. And this is done like this:
@@ -74,7 +74,7 @@ main = do
                   -- Tape type, handling fucntions --
 -- ========================================================================== --
 
-{- Creates a Tape based on the character chosen to represent a blank symbol, a
+{- Creates a Tape based on: The character chosen to represent a blank symbol, a
    String to represent the written part of the tape, and finally the amount of
    characters to print.                                                       -}
 newTape :: Char -> String -> Int -> Tape
@@ -95,8 +95,8 @@ moveTape (Tape b (l:ls) (r:rs) n) x Stay    = Tape x (l:ls) (r:rs) n
 moveTape (Tape b (l:ls) (r:rs) n) x ToLeft  = Tape l ls (x:r:rs) n
 moveTape (Tape b (l:ls) (r:rs) n) x ToRight = Tape r (x:l:ls) rs n
 
-{- It returns the current char of a tape. Or in other words, the visile
-   character for the 'head' of the machine.                                    -}
+{- It returns the current char of a tape. Or in other words, the symbols that
+   it's currently under the head.                                             -}
 currentChar :: Tape -> Char
 currentChar (Tape x l r n) = x
 
@@ -128,7 +128,7 @@ nextStateOf (_, _, _, _, x) = x
 -- ========================================================================== --
 
 {- A machine is composed by a set of rules, a blank symbol and a initial state.
-   So, this functions are here to acces to every part of them                 -}
+   So, this functions allow the acces to them.                                -}
 rulesOf :: Machine -> Rules
 rulesOf (x,_,_) = x
 
@@ -147,7 +147,7 @@ makeMachine rules istate blank = (rules, istate, blank)
 -- ========================================================================== --
 
 {- It takes a Tape, the current State and the Machine-rules, and returns
-   the new Tape, the new State, and: False if the tape changed, and True
+   the new Tape, the new State, and: False if the tape changed, or True
    if no rule was applied.
    t = current tape, s = current state, (r:rs) = rules                        -}
 oneTapeChange :: Tape -> State -> Rules -> (Tape, State, Bool)
@@ -162,7 +162,7 @@ oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
           ns = nextStateOf r
 
 {- It applies the oneTapeChange function until this one returns false on the
-   'end' sector. It also keep record of every different Tape, after every step,
+   'end' sector. It also keeps record of every different Tape, after every step,
    in a sequential order.
    t = current Tape, s = current state, rs = rules, ts = lsit of tapes, e = end
                                                                               -}
@@ -172,7 +172,7 @@ runTMH t s rs ts e = if e then (t:ts)
                                in runTMH newT newS rs (t:ts) end
 
 {- With the help of runTMH (runTM Helper), it returns a list with every
-   change that the Tape has suffer a long the process.
+   change that the Tape has suffer along the process.
    sl = sides-length. -}
 runTM :: String -> Machine -> Int -> [Tape]
 runTM tape machine sl = runTMH (newTape b tape sl) initial rules [] False

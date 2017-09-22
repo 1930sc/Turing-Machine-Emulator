@@ -1,6 +1,6 @@
 ;; Palindrome
 ;; it would erase the first and last symbol of the tape until either it's empty
-;; or the first and the last stop matching.
+;; or the first and the last symbol stop matching.
 
 Initial = In
 Blank   = .
