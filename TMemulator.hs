@@ -55,7 +55,7 @@ main = do
   putStrLn "\nInitial Tape: "
   tape <- getLine
   putStrLn "\nVisible length of the Tape: "
-  len <- getLine >>= return . (\x -> div x 2) . read
+  len <- fmap ((`div` 2) . read) getLine
   putStrLn "\nJust final tape[0], or every step[1]?: "
   out <- getLine
   let procedure = runTM tape (fileToMachine contents) len
@@ -63,9 +63,9 @@ main = do
          then do mapM_ print $ reverse procedure
                  putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
 
-         else do start <- getCurrentTime >>= return . utctDayTime
+         else do start <- fmap utctDayTime getCurrentTime
                  print $ head procedure
-                 end   <- getCurrentTime >>= return . utctDayTime
+                 end   <- fmap utctDayTime getCurrentTime
                  putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
                  putStrLn $ "CPU Time    : " ++ show (end-start) ++ "\n"
 
@@ -78,7 +78,7 @@ main = do
    String to represent the written part of the tape, and finally the amount of
    characters to print.                                                       -}
 newTape :: Char -> String -> Int -> Tape
-newTape blank tape n = tapeF blank "" tape n
+newTape blank = tapeF blank ""
 
 {- It helps the previous function by creating the infinite lists              -}
 tapeF :: Char -> [Char] -> [Char] -> Int -> Tape
@@ -153,7 +153,7 @@ makeMachine rules istate blank = (rules, istate, blank)
 oneTapeChange :: Tape -> State -> Rules -> (Tape, State, Bool)
 oneTapeChange t s []     = (t, s, True)
 oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
-                               then ((moveTape t c2 ac), ns, False)
+                               then (moveTape t c2 ac, ns, False)
                                else oneTapeChange t s rs
     where st = stateOf r
           c1 = charOf r
@@ -167,9 +167,9 @@ oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
    t = current Tape, s = current state, rs = rules, ts = lsit of tapes, e = end
                                                                               -}
 runTMH :: Tape -> State -> Rules -> [Tape] -> Bool -> [Tape]
-runTMH t s rs ts e = if e then (t:ts)
-                        else let (newT, newS, end) = oneTapeChange t s rs
-                               in runTMH newT newS rs (t:ts) end
+runTMH t s rs ts e = if e then t:ts
+                          else let (newT, newS, end) = oneTapeChange t s rs
+                                 in runTMH newT newS rs (t:ts) end
 
 {- With the help of runTMH (runTM Helper), it returns a list with every
    change that the Tape has suffer along the process.

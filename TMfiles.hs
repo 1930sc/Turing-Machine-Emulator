@@ -17,11 +17,11 @@ type Machine = (Rules, State, Char)
    -- Transforms a file into a useful data. A Machine type, to be specific --
 -- ========================================================================== --
 fileI :: String -> String
-fileI xs = [ x | x <- (dropWhile (/='=') finded), x /= ' ', x /= '=']
+fileI xs = [ x | x <- dropWhile (/='=') finded, x /= ' ', x /= '=']
   where finded = (tail . takeWhile (/='\n') . dropWhile (/='I')) xs
 
 fileB :: String -> Char
-fileB xs = head [x | x <- (dropWhile (/='=') finded), x /= ' ', x /= '=']
+fileB xs = head [x | x <- dropWhile (/='=') finded, x /= ' ', x /= '=']
   where finded = (tail . takeWhile (/='\n') . dropWhile (/='B')) xs
 
 noComments :: String -> String
@@ -35,7 +35,7 @@ noComments xs = fn xs False
 
 cleanRules :: String -> [String]
 cleanRules xs = splitOneOf "()" f
-  where f = tail [x | x <- (dropWhile (/='=') finded), x /= '\n']
+  where f = tail [x | x <- dropWhile (/='=') finded, x /= '\n']
         finded = (tail . dropWhile (/='R')) xs
 
 listRules :: String -> [[String]]

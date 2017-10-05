@@ -2,9 +2,9 @@
 
 **This project it's separated in 3 parts:**
 
-  * Emulator itself (TMemulator.hs).
-  * Read file module (TMfiles.hs).
-  * .tm File extension.
+*   Emulator itself (TMemulator.hs).
+*   Read file module (TMfiles.hs).
+*   .tm File extension.
 
 The first one is a program that essentially takes a Turing Machine and an
 initial word and returns all the different tapes in sequential order, but it's
@@ -65,9 +65,9 @@ the ```exmple.tm``` file open**
 **The first thing that you have to know is that every line that starts with
 ```;;``` is a commentary. Other than that, there are just three aspects to talk
 about**
-  - Initial State.
-  - Blank Symbol.
-  - Rules.
+-   Initial State.
+-   Blank Symbol.
+-   Rules.
 
 **A Turing Machine it's usually defined as a 7-tuple, where the elements are:**
  1. A finite non-empty set of States.
@@ -78,40 +78,41 @@ about**
  6. The Initial State.
  7. A set of accepting final or terminating states.
 
-See:[ Wikipedia Turing Machine formal-definition](https://en.wikipedia.org/wiki/Turing_machine#Formal_definition)
+See:[Wikipedia Turing Machine formal-definition](https://en.wikipedia.org/wiki/Turing_machine#Formal_definition)
 for more information.
 
-1. **In this program the set of states**, it's given by the states that appear
-in the Rules.
+1.  **In this program the set of states**, it's given by the states that appear
+    in the Rules.
 
-2. **The alphabet**, it's given by the characters that are used on the rules,
-or if you want, the characters allowed by the program or the terminal in use.
+2.  **The alphabet**, it's given by the characters that are used on the rules,
+    or if you want, the characters allowed by the program or the terminal in
+    use.
 
-3. **The blank symbol** has to be explicitly specified on the file, and it's
- done like this: ``` Blank = <YOUR SYMBOL>``` (without '<' and '>') in a new
- line before the rules. In the case of ``` example.tm ``` , the blank symbol
- would be a ```.``` (a dot).
+3.  **The blank symbol** has to be explicitly specified on the file, and it's
+    done like this: ``` Blank = <YOUR SYMBOL>``` (without '<' and '>') in a new
+    line before the rules. In the case of ``` example.tm ``` , the blank symbol
+    would be a ```.``` (a dot).
 
-4. **The set of allowed symbols** (characters) that may appear in the initial
-tape, are just the characters allowed by the program or the Terminal.
+4.  **The set of allowed symbols** (characters) that may appear in the initial
+    tape, are just the characters allowed by the program or the Terminal.
 
-5. **To define the rules** of a Turing Machine you must write ```Rules = ```,
-and after that, you write every rule you need. But a rule itself has a syntax
-too.   Every rule will be a 5 elements tuple, where the elements are separated
-by spaces.
+5.  **To define the rules** of a Turing Machine you must write ```Rules = ```,
+    and after that, you write every rule you need. But a rule itself has a
+    syntax too.   Every rule will be a 5 elements tuple, where the elements are
+    separated by spaces.
 
-   Example :  The rule ``` (A 1 0 -> B)``` mean, that if the machine it's in the
-   state ```A``` and sees a ```1``` then, it replace it by ```0```, moves to
-   the ```->``` (right), and changes to state ```B```.  Where the first element
-   is a Haskell-String, the second and the third are characters, the forth can
-   be either ``` -> ``` (Right), ```<-``` (Left) or ```><```(Stay), and the
-   fifth element is again a Haskell-String, in the sense that they can be
-   larger then 1 character, because there are names for states, not symbols.
+    Example :  The rule ``` (A 1 0 -> B)``` mean, that if the machine it's in the
+    state ```A``` and sees a ```1``` then, it replace it by ```0```, moves to
+    the ```->``` (right), and changes to state ```B```.  Where the first element
+    is a Haskell-String, the second and the third are characters, the forth can
+    be either ``` -> ``` (Right), ```<-``` (Left) or ```><```(Stay), and the
+    fifth element is again a Haskell-String, in the sense that they can be
+    larger then 1 character, because there are names for states, not symbols.
 
-6. **The Initial State** has to be specified, and it's done like the blank
-symbol. The example ```Initial = A``` is a definition of a Initial state,
-just as it's used in the ```example.tm ``` file.
+6.  **The Initial State** has to be specified, and it's done like the blank
+    symbol. The example ```Initial = A``` is a definition of a Initial state,
+    just as it's used in the ```example.tm ``` file.
 
-7. **The accepting final states** aren't specified in this emulator, we just
-assume that the machine will end when there is no rule that can be applied, on
-the current state with the current tape.
+7.  **The accepting final states** aren't specified in this emulator, we just
+    assume that the machine will end when there is no rule that can be applied,
+    on the current state with the current tape.
