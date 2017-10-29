@@ -2,12 +2,8 @@ module FileReading (fileToMachine, Action(ToRight, ToLeft, Stay)) where
 
 import Data.List.Split (splitOneOf)
 
-data Action  = ToLeft | ToRight | Stay deriving (Eq, Show)
+import Types
 
-type State   = String
-type Rule    = (State, Char, Char, Action, State)
-type Rules   = [Rule]
-type Machine = (Rules, State, Char)
 
 -- ========================================================================== --
    -- Transforms a file into a useful data. A Machine type, to be specific --
@@ -43,19 +39,13 @@ fileRules :: String -> Rules
 fileRules = map listToRule . listRules
 
 listToRule :: [String] -> Rule
-listToRule (a:b:c:d:e:xs) = ruleTuple a (head b) (head c) ac e
+listToRule (a:b:c:d:e:xs) = ruleTuple (State a) (head b) (head c) ac (State e)
   where ac | d == "->" = ToRight
            | d == "<-" = ToLeft
            | otherwise = Stay
 
-makeMachine :: Rules -> State -> Char -> Machine
-makeMachine rules istate blank = (rules, istate, blank)
-
-ruleTuple :: State -> Char -> Char -> Action -> State -> Rule
-ruleTuple a b c d e = (a, b, c, d, e)
-
 fileToMachine :: String -> Machine
-fileToMachine xs = makeMachine rules istate blank
+fileToMachine xs = makeMachine rules (State istate) blank
   where nxs    = noComments xs
         istate = fileI nxs
         blank  = fileB nxs
