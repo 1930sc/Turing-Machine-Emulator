@@ -1,10 +1,9 @@
+module MachineFunctions (runTM, Tape) where
 
               -- Turing Machine emulator. Made in Haskell --
+
 import Data.List
-import System.IO
-import Control.Monad
-import Data.Time.Clock
-import TMfiles
+import FileReading
 
 {-   * To understand the Action type, see TMfiles module.
      * The Tape type is a variant of the one in here:
@@ -37,37 +36,6 @@ instance Show Tape where
   show (Tape x ls rs n) = left ++ "[" ++ [x] ++ "]" ++ right
                           where left  = reverse $ take n ls
                                 right = take n rs
-
-
--- ========================================================================== --
-                -- Main Function, Run Your Turing MACHINE !!! --
--- ========================================================================== --
-
-{- It takes the path of a '.tm' file, a string representing the initial Tape,
-   the length of the tape to be showed (see 'Show Tape' instance) and asks if
-   it should be printed just the final tape, or the tape after every step     -}
-main :: IO ()
-main = do
-  putStrLn "Turing Machine Path: "
-  file <- getLine
-  infile   <- openFile file ReadMode
-  contents <- hGetContents infile
-  putStrLn "\nInitial Tape: "
-  tape <- getLine
-  putStrLn "\nVisible length of the Tape: "
-  len <- fmap ((`div` 2) . read) getLine
-  putStrLn "\nJust final tape[0], or every step[1]?: "
-  out <- getLine
-  let procedure = runTM tape (fileToMachine contents) len
-    in if out == "1"
-         then do mapM_ print $ reverse procedure
-                 putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
-
-         else do start <- fmap utctDayTime getCurrentTime
-                 print $ head procedure
-                 end   <- fmap utctDayTime getCurrentTime
-                 putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
-                 putStrLn $ "CPU Time    : " ++ show (end-start) ++ "\n"
 
 
 -- ========================================================================== --

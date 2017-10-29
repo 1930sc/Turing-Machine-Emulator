@@ -1,9 +1,6 @@
-module TMfiles
- ( fileToMachine
- , Action(ToRight, ToLeft, Stay))
- where
+module FileReading (fileToMachine, Action(ToRight, ToLeft, Stay)) where
 
-import Data.List.Split
+import Data.List.Split (splitOneOf)
 
 data Action  = ToLeft | ToRight | Stay deriving (Eq, Show)
 
@@ -11,7 +8,6 @@ type State   = String
 type Rule    = (State, Char, Char, Action, State)
 type Rules   = [Rule]
 type Machine = (Rules, State, Char)
-
 
 -- ========================================================================== --
    -- Transforms a file into a useful data. A Machine type, to be specific --

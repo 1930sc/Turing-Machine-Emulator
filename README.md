@@ -2,8 +2,8 @@
 
 **This project it's separated in 3 parts:**
 
-*   Emulator itself (TMemulator.hs).
-*   Read file module (TMfiles.hs).
+*   Emulator itself (Main.hs + MachineFunctions.hs).
+*   Read file module (FileReading.hs).
 *   .tm File extension.
 
 The first one is a program that essentially takes a Turing Machine and an
@@ -12,9 +12,6 @@ possible to ask just for the last one.
 
 **Here is an example of how it works with the ``` example.tm``` file:**
 ```
-computer:~/Turing-Machine-Emulator$ ghc -O TMemulator.hs
-computer:~/Turing-Machine-Emulator$ ./TMemulator
-
  Turing Machine Path:
  example.tm
 
