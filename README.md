@@ -12,8 +12,12 @@ possible to ask just for the last one.
 
 **Here is an example of how it works with the ``` example.tm``` file:**
 ```
+$ stack setup
+$ stack build
+$ stack exec turing-machine-emulator-exe
+
  Turing Machine Path:
- example.tm
+ src/Machines/example.tm
 
  Initial Tape:
  0011
