@@ -3,40 +3,13 @@ module MachineFunctions (runTM, Tape) where
               -- Turing Machine emulator. Made in Haskell --
 
 import Data.List
-import FileReading
+import Types
 
 {-   * To understand the Action type, see TMfiles module.
      * The Tape type is a variant of the one in here:
            - https://rosettacode.org/wiki/Universal_Turing_machine
      * I've come up with everything else:
            - https://github.com/Average-user/Turing-Machine-Emulator                                    -}
-
--- ========================================================================== --
-                -- Types definitions and Types synonyms --
--- ========================================================================== --
-type State   = String
-type Rule    = (State, Char, Char, Action, State)
-type Rules   = [Rule]
-type Machine = (Rules, State, Char)
-
-data Tape    = Tape Char [Char] [Char] Int
-
-{- ls = left side, rs = right side, x = 'head' and n = Chars to print.
-   Because the Tape is infinite, is necesary to tell the computer, how many
-   characters it has to print. In a Tape like this: '...123[4]567...', where
-   the dots are infinite to both sides, we tell the computer to print just the
-   6 first characters of both sides. And this is done like this:
-
-    *Main> let ls = "123" ++ (repeat '.')
-    *Main> let rs = "456" ++ (repeat '.')
-    *Main> (Tape '4' ls rs 6)
-    ...321[4]456...                                                           -}
-
-instance Show Tape where
-  show (Tape x ls rs n) = left ++ "[" ++ [x] ++ "]" ++ right
-                          where left  = reverse $ take n ls
-                                right = take n rs
-
 
 -- ========================================================================== --
                   -- Tape type, handling fucntions --
@@ -56,68 +29,21 @@ tapeF blank lts rts n | null rts  = Tape blank left blanks n
                             left   = reverse lts ++ blanks
                             right  = tail rts ++ blanks
 
-{- The action type defined on the UTMfiles module, defines three actions:
-   ToRight, ToLeft, and Stay. This function implements them on the tape.      -}
+{-| The action type defined on the UTMfiles module, defines three actions:
+    'ToRight', 'ToLeft', and 'Stay'. This function implements them on the tape.      -}
 moveTape :: Tape -> Char -> Action -> Tape
 moveTape (Tape b (l:ls) (r:rs) n) x Stay    = Tape x (l:ls) (r:rs) n
 moveTape (Tape b (l:ls) (r:rs) n) x ToLeft  = Tape l ls (x:r:rs) n
 moveTape (Tape b (l:ls) (r:rs) n) x ToRight = Tape r (x:l:ls) rs n
 
-{- It returns the current char of a tape. Or in other words, the symbols that
-   it's currently under the head.                                             -}
-currentChar :: Tape -> Char
-currentChar (Tape x l r n) = x
-
-
--- ========================================================================== --
-                          -- Accessing to Rules --
--- ========================================================================== --
-ruleTuple :: State -> Char -> Char -> Action -> State -> Rule
-ruleTuple a b c d e = (a, b, c, d, e)
-
-stateOf :: Rule -> State
-stateOf (x, _, _, _, _) = x
-
-charOf :: Rule -> Char
-charOf (_, x, _, _, _) = x
-
-nextCharOf :: Rule -> Char
-nextCharOf (_, _, x, _, _) = x
-
-actionOf :: Rule -> Action
-actionOf (_, _, _, x, _) = x
-
-nextStateOf :: Rule -> State
-nextStateOf (_, _, _, _, x) = x
-
-
--- ========================================================================== --
-                         -- Accessing to Machines --
--- ========================================================================== --
-
-{- A machine is composed by a set of rules, a blank symbol and a initial state.
-   So, this functions allow the acces to them.                                -}
-rulesOf :: Machine -> Rules
-rulesOf (x,_,_) = x
-
-initialState :: Machine -> State
-initialState (_,x,_) = x
-
-blankOf :: Machine -> Char
-blankOf (_,_,x) = x
-
-makeMachine :: Rules -> State -> Char -> Machine
-makeMachine rules istate blank = (rules, istate, blank)
-
-
 -- ========================================================================== --
                 -- Running a Turing Machine --
 -- ========================================================================== --
 
-{- It takes a Tape, the current State and the Machine-rules, and returns
-   the new Tape, the new State, and: False if the tape changed, or True
-   if no rule was applied.
-   t = current tape, s = current state, (r:rs) = rules                        -}
+{-| It takes a Tape, the current State and the Machine-rules, and returns
+    the new Tape, the new State, and: False if the tape changed, or True
+    if no rule was applied.
+    t = current tape, s = current state, (r:rs) = rules                        -}
 oneTapeChange :: Tape -> State -> Rules -> (Tape, State, Bool)
 oneTapeChange t s []     = (t, s, True)
 oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
@@ -129,19 +55,19 @@ oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
           ac = actionOf r
           ns = nextStateOf r
 
-{- It applies the oneTapeChange function until this one returns false on the
-   'end' sector. It also keeps record of every different Tape, after every step,
-   in a sequential order.
-   t = current Tape, s = current state, rs = rules, ts = lsit of tapes, e = end
+{-| It applies the oneTapeChange function until this one returns false on the
+    'end' sector. It also keeps record of every different Tape, after every step,
+    in a sequential order.
+    t = current Tape, s = current state, rs = rules, ts = lsit of tapes, e = end
                                                                               -}
 runTMH :: Tape -> State -> Rules -> [Tape] -> Bool -> [Tape]
 runTMH t s rs ts e = if e then t:ts
                           else let (newT, newS, end) = oneTapeChange t s rs
                                  in runTMH newT newS rs (t:ts) end
 
-{- With the help of runTMH (runTM Helper), it returns a list with every
-   change that the Tape has suffer along the process.
-   sl = sides-length. -}
+{-| With the help of runTMH (runTM Helper), it returns a list with every
+    change that the Tape has suffer along the process.
+    sl = sides-length. -}
 runTM :: String -> Machine -> Int -> [Tape]
 runTM tape machine sl = runTMH (newTape b tape sl) initial rules [] False
   where initial = initialState machine
