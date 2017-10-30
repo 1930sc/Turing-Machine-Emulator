@@ -2,25 +2,19 @@ module Types where
 
 data Action  = ToLeft | ToRight | Stay deriving (Eq, Show)
 
--- ========================================================================== --
-                -- Types definitions and Types synonyms --
--- ========================================================================== --
 newtype State = State { unState :: String }
   deriving (Eq)
 
 type Rules = [Rule]
 
 -- | A machine is composed by a set of rules, a blank symbol and a initial state.
-data Machine = Machine 
+data Machine = Machine
              { rulesOf :: Rules
              , initialState :: State
-             , blankOf :: Char 
+             , blankOf :: Char
              }
 
-makeMachine :: Rules -> State -> Char -> Machine
-makeMachine = Machine
-
-data Rule    = Rule 
+data Rule    = Rule
              { stateOf :: State
              , charOf :: Char
              , nextCharOf :: Char
@@ -28,13 +22,10 @@ data Rule    = Rule
              , nextStateOf :: State
              }
 
-ruleTuple :: State -> Char -> Char -> Action -> State -> Rule
-ruleTuple = Rule
-
-data Tape    = Tape 
-             { currentChar :: Char 
+data Tape    = Tape
+             { currentChar :: Char
              -- ^ It returns the current char of a tape. Or in other words, the symbols that
-             -- it's currently under the head.                                             
+             -- it's currently under the head.
              , tapeLeft :: [Char]
              , tapeRight :: [Char]
              , displayChars :: Int

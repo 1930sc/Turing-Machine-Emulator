@@ -2,7 +2,7 @@ name:                turing-machine-emulator
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/Average-user/turing-machine-emulator#readme
+homepage:            https://github.com/Average-user/Turing-machine-emulator#readme
 license:             MIT
 license-file:        LICENSE
 author:              Lucas Polymeris
@@ -41,4 +41,4 @@ test-suite turing-machine-emulator-test
 
 source-repository head
   type:     git
-  location: https://github.com/Average-user/turing-machine-emulator
+  location: https://github.com/Average-user/Turing-machine-emulator

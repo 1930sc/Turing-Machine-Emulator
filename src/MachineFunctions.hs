@@ -25,9 +25,10 @@ newTape blank = tapeF blank ""
 tapeF :: Char -> [Char] -> [Char] -> Int -> Tape
 tapeF blank lts rts n | null rts  = Tape blank left blanks n
                       | otherwise = Tape (head rts) left right n
-                      where blanks = repeat blank
-                            left   = reverse lts ++ blanks
-                            right  = tail rts ++ blanks
+  where
+    blanks = repeat blank
+    left   = reverse lts ++ blanks
+    right  = tail rts ++ blanks
 
 {-| The action type defined on the UTMfiles module, defines three actions:
     'ToRight', 'ToLeft', and 'Stay'. This function implements them on the tape.      -}
@@ -47,13 +48,14 @@ moveTape (Tape b (l:ls) (r:rs) n) x ToRight = Tape r (x:l:ls) rs n
 oneTapeChange :: Tape -> State -> Rules -> (Tape, State, Bool)
 oneTapeChange t s []     = (t, s, True)
 oneTapeChange t s (r:rs) = if st == s && c1 == currentChar t
-                               then (moveTape t c2 ac, ns, False)
-                               else oneTapeChange t s rs
-    where st = stateOf r
-          c1 = charOf r
-          c2 = nextCharOf r
-          ac = actionOf r
-          ns = nextStateOf r
+                             then (moveTape t c2 ac, ns, False)
+                             else oneTapeChange t s rs
+    where
+      st = stateOf r
+      c1 = charOf r
+      c2 = nextCharOf r
+      ac = actionOf r
+      ns = nextStateOf r
 
 {-| It applies the oneTapeChange function until this one returns false on the
     'end' sector. It also keeps record of every different Tape, after every step,
@@ -70,6 +72,7 @@ runTMH t s rs ts e = if e then t:ts
     sl = sides-length. -}
 runTM :: String -> Machine -> Int -> [Tape]
 runTM tape machine sl = runTMH (newTape b tape sl) initial rules [] False
-  where initial = initialState machine
-        rules   = rulesOf machine
-        b       = blankOf machine
+  where
+    initial = initialState machine
+    rules   = rulesOf machine
+    b       = blankOf machine

@@ -15,11 +15,11 @@ main = do
   infile   <- openFile file ReadMode
   contents <- hGetContents infile
   putStrLn "\nInitial Tape: "
-  tape <- getLine
+  tape     <- getLine
   putStrLn "\nVisible length of the Tape: "
-  len <- ((`div` 2) . read) <$> getLine
+  len      <- (`div` 2) . read <$> getLine
   putStrLn "\nJust final tape[0], or every step[1]?: "
-  out <- getLine
+  out      <- getLine
   let procedure = runTM tape (fileToMachine contents) len
     in if out == "1"
          then do mapM_ print $ reverse procedure
