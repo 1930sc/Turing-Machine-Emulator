@@ -8,7 +8,6 @@ license-file:        LICENSE
 author:              Lucas Polymeris
 maintainer:          lucaspolymeris@gprotonmail.com
 copyright:           2017 Lucas Polymeris
-category:            _
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10

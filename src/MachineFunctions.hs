@@ -9,7 +9,7 @@ import Types
      * The Tape type is a variant of the one in here:
            - https://rosettacode.org/wiki/Universal_Turing_machine
      * I've come up with everything else:
-           - https://github.com/Average-user/Turing-Machine-Emulator                                    -}
+           - https://github.com/Average-user/Turing-Machine-Emulator          -}
 
 -- ========================================================================== --
                   -- Tape type, handling fucntions --

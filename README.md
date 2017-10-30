@@ -17,7 +17,7 @@ $ stack build
 $ stack exec turing-machine-emulator-exe
 
  Turing Machine Path:
- src/Machines/example.tm
+ Machines/example.tm
 
  Initial Tape:
  0011
