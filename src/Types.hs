@@ -2,34 +2,33 @@ module Types where
 
 data Action  = ToLeft | ToRight | Stay deriving (Eq, Show)
 
-newtype State = State { unState :: String }
-  deriving (Eq)
+newtype State = State { unState :: String } deriving (Eq)
 
 type Rules = [Rule]
 
 -- | A machine is composed by a set of rules, a blank symbol and a initial state.
 data Machine = Machine
-             { rulesOf :: Rules
+             { rulesOf      :: Rules
              , initialState :: State
-             , blankOf :: Char
+             , blankOf      :: Char
              }
 
-data Rule    = Rule
-             { stateOf :: State
-             , charOf :: Char
-             , nextCharOf :: Char
-             , actionOf :: Action
-             , nextStateOf :: State
-             }
+data Rule = Rule
+          { stateOf     :: State
+          , charOf      :: Char
+          , nextCharOf  :: Char
+          , actionOf    :: Action
+          , nextStateOf :: State
+          }
 
-data Tape    = Tape
-             { currentChar :: Char
-             -- ^ It returns the current char of a tape. Or in other words, the symbols that
-             -- it's currently under the head.
-             , tapeLeft :: [Char]
-             , tapeRight :: [Char]
-             , displayChars :: Int
-             }
+data Tape = Tape
+          { currentChar  :: Char
+          -- ^ It returns the current char of a tape. Or in other words, the symbols that
+          -- it's currently under the head.
+          , tapeLeft     :: [Char]
+          , tapeRight    :: [Char]
+          , displayChars :: Int
+          }
 
 {-| ls = left side, rs = right side, x = 'head' and n = Chars to print.
     Because the Tape is infinite, is necesary to tell the computer, how many

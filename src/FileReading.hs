@@ -17,14 +17,14 @@ fileB xs = head [x | x <- dropWhile (/='=') finded, x /= ' ', x /= '=']
     finded = (tail . takeWhile (/='\n') . dropWhile (/='B')) xs
 
 noComments :: String -> String
-noComments xs = fn xs False
+noComments = fn False
   where
-    fn []     _ = []
-    fn [x]    _ = [x]
-    fn (x:y:xs) b | b && x == '\n'       = x : fn (y:xs) False
-                  | b                    = fn (y:xs) True
-                  | x == ';' && y == ';' = fn xs True
-                  | otherwise            = x : fn (y:xs) b
+    fn _ []                              = []
+    fn _ [x]                             = [x]
+    fn b (x:y:xs) | b && x == '\n'       = x : fn False (y:xs)
+                  | b                    = fn True (y:xs)
+                  | x == ';' && y == ';' = fn True xs
+                  | otherwise            = x : fn b (y:xs)
 
 cleanRules :: String -> [String]
 cleanRules xs = splitOneOf "()" f

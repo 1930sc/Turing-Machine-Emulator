@@ -17,16 +17,16 @@ main = do
   putStrLn "\nInitial Tape: "
   tape     <- getLine
   putStrLn "\nVisible length of the Tape: "
-  len      <- (`div` 2) . read <$> getLine
+  len      <- flip div 2 . read <$> getLine
   putStrLn "\nJust final tape[0], or every step[1]?: "
   out      <- getLine
   let procedure = runTM tape (fileToMachine contents) len
     in if out == "1"
          then do mapM_ print $ reverse procedure
-                 putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
+                 putStrLn $ (++) "\nN° of steps : " $ show $ length procedure
 
          else do start <- utctDayTime <$> getCurrentTime
                  print $ head procedure
                  end   <- utctDayTime <$> getCurrentTime
-                 putStrLn $ (++) "\nN° of steps : " $ show (length procedure)
+                 putStrLn $ (++) "\nN° of steps : " $ show $ length procedure
                  putStrLn $ "CPU Time    : " ++ show (end-start) ++ "\n"
