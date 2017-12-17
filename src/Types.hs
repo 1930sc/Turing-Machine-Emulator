@@ -41,6 +41,6 @@ data Tape = Tape
      *Main> (Tape '4' ls rs 6)
      ...321[4]456...                                                           -}
 instance Show Tape where
-  show (Tape x ls rs n) = left ++ "[" ++ [x] ++ "]" ++ right
+  show (Tape x ls rs n) = "|" ++ left ++ "[" ++ [x] ++ "]" ++ right ++ "|"
                           where left  = reverse $ take n ls
                                 right = take n rs
