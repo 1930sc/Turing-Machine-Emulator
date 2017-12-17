@@ -7,46 +7,39 @@
 *   .tm File extension.
 
 The first one is a program that essentially takes a Turing Machine and an
-initial word and returns all the different tapes in sequential order, but it's
+initial tape and returns all the different tapes in sequential order, but is
 possible to ask just for the last one.
 
 **Here is an example of how it works with the ``` example.tm``` file:**
-```
+
+``` text
 $ stack setup
 $ stack build
-$ stack exec turing-machine-emulator-exe
+$ stack exec turing-machine-emulator-exe Machines/example.tm 0011 10 true
 
- Turing Machine Path:
- Machines/example.tm
+Tapes :
+|..........[0]011.......|
+|..........[0]11........|
+|.........0[1]1.........|
+|........01[1]..........|
+|.......011[.]..........|
+|........01[1]..........|
+|.........0[1]..........|
+|..........[0]1.........|
+|..........[.]01........|
+|..........[0]1.........|
+|..........[1]..........|
+|.........1[.]..........|
+|..........[1]..........|
+|..........[.]..........|
+|..........[.]..........|
+|..........[.]..........|
+|..........[.]..........|
 
- Initial Tape:
- 0011
-
- Visible length of the Tape:
- 10
-
- Just final tape[0], or every step[1]?:
- 1
- .....[0]011..
- .....[0]11...
- ....0[1]1....
- ...01[1].....
- ..011[.].....
- ...01[1].....
- ....0[1].....
- .....[0]1....
- .....[.]01...
- .....[0]1....
- .....[1].....
- ....1[.].....
- .....[1].....
- .....[.].....
- .....[.].....
- .....[.].....
- .....[.].....
-
- N° of steps : 17
+N° of steps : 17
 ```
+
+
 
 The second part has only one objective, and it's to read a ```.tm``` file and
 transforms the conteined information, in to a useful data.
@@ -63,9 +56,9 @@ represented in this type of files, read the explanation below.
 **To understand this easier, you might want to have a new window with
 the ```exmple.tm``` file open**
 
-**The first thing that you have to know is that every line that starts with
-```;;``` is a commentary. Other than that, there are just three aspects to talk
-about**
+**The first thing that you have to know is that every line that starts
+with ```;;``` is a commentary. Other than that, there are just three 
+aspects to talk about:**
 -   Initial State.
 -   Blank Symbol.
 -   Rules.
@@ -119,7 +112,7 @@ for more information.
     on the current state with the current tape.
 
 ## [LICENSE](https://github.com/Average-user/Turing-Machine-Emulator/blob/master/LICENSE)
-```
+``` text
 MIT License
 
 Copyright (c) 2017 Lucas Polymeris
